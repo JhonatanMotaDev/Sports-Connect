@@ -1,50 +1,25 @@
-# Welcome to your Expo app 👋
+# SportsConnect 🏌️‍♀️
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+SportsConnect é uma aplicação móvel voltada para **promoção de comunidades mais saudáveis através do esporte**. O app permite que usuários encontrem, participem e criem eventos esportivos abertos à comunidade, incentivando a prática de atividades físicas e a integração social.
 
-## Get started
+## Funcionalidades Principais
 
-1. Install dependencies
+- **Criação de Eventos Esportivos:** Usuários podem criar eventos com título, data, local e descrição, tornando-os acessíveis à comunidade.  
+- **Listagem e Exploração de Eventos:** Navegue por eventos próximos ou relevantes, com informações detalhadas.  
+- **Comunidades Saudáveis:** Incentiva a formação de grupos e a prática coletiva de esportes, promovendo saúde e bem-estar.  
+- **Tema Escuro/Claro:** Suporte completo para modos de cor do dispositivo.
 
-   ```bash
-   npm install
-   ```
+## Parte Técnica
 
-2. Start the app
+- **Plataforma:** Desenvolvido com **React Native** e **Expo**, garantindo compatibilidade com Android, iOS e web.  
+- **Banco de Dados:** Utiliza **Firebase Firestore** para armazenamento de eventos e gerenciamento de dados em tempo real.  
+- **Autenticação:** Preparado para integração com **Firebase Authentication**, permitindo login via email ou provedores como Google.  
+- **Estrutura Modular:** Código organizado em pastas `screens`, `services` e `config`, facilitando manutenção e escalabilidade.  
+- **UI Responsiva:** Componentes reutilizáveis e estilizados para fornecer uma interface agradável e intuitiva, mantendo padrão de design consistente.
 
-   ```bash
-   npx expo start
-   ```
+## Tecnologias Utilizadas
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- [React Native](https://reactnative.dev/)  
+- [Expo](https://expo.dev/)  
+- [Firebase](https://firebase.google.com/) (Firestore, Authentication)  
+- [TypeScript](https://www.typescriptlang.org/)
