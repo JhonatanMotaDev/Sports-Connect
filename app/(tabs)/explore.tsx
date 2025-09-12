@@ -1,101 +1,126 @@
 import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
 import { Fonts } from '@/constants/theme';
 
 const eventos = [
   {
     id: '1',
-    titulo: 'Corrida de Rua - 5km',
-    data: '20/09/2025',
-    local: 'Praça Central',
-    descricao: 'Corrida aberta para todos os níveis, com premiação para os 3 primeiros colocados.',
+    titulo: 'Campeonato de Futsal - Afya',
+    data: '15/09/2025',
+    local: 'Ginásio Afya',
+    descricao: 'Torneio de futsal entre cursos da Afya, com premiação para o time campeão e semifinalistas.',
   },
   {
     id: '2',
-    titulo: 'Torneio de Basquete 3x3',
-    data: '25/09/2025',
-    local: 'Quadra Municipal',
-    descricao: 'Competição amistosa com equipes locais. Inscrições gratuitas.',
+    titulo: 'Corrida de Rua Unimontes 10km',
+    data: '22/09/2025',
+    local: 'Campus Unimontes - Montes Claros',
+    descricao: 'Evento aberto a estudantes e comunidade, percorrendo principais ruas do campus. Medalhas para todos os participantes.',
   },
   {
     id: '3',
-    titulo: 'Aula Aberta de Yoga',
+    titulo: 'Torneio de Basquete 3x3 Funorte',
+    data: '28/09/2025',
+    local: 'Quadra Poliesportiva Funorte',
+    descricao: 'Torneio amistoso de basquete 3x3 para alunos da Funorte. Inscrições gratuitas por equipe.',
+  },
+  {
+    id: '4',
+    titulo: 'Aula Aberta de Yoga - Afya',
     data: '30/09/2025',
-    local: 'Parque das Águas',
-    descricao: 'Sessão de relaxamento e bem-estar para iniciantes e praticantes.',
+    local: 'Parque da Cidade - Afya',
+    descricao: 'Sessão de relaxamento e bem-estar aberta a toda comunidade acadêmica da Afya.',
+  },
+  {
+    id: '5',
+    titulo: 'Desafio de Natação Unimontes',
+    data: '05/10/2025',
+    local: 'Piscina Olímpica Unimontes',
+    descricao: 'Provas de natação em várias distâncias, com premiação para os 3 primeiros colocados de cada categoria.',
+  },
+  {
+    id: '6',
+    titulo: 'Circuito Funcional Funorte',
+    data: '12/10/2025',
+    local: 'Quadra Externa Funorte',
+    descricao: 'Atividade física funcional com circuito de exercícios, aberta a todos os estudantes da Funorte.',
   },
 ];
 
-export default function TabTwoScreen() {
+
+export default function EventosScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={260}
-          color="#808080"
-          name="sportscourt"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText
-          type="title"
-          style={{ fontFamily: Fonts.rounded, color: '#fff' }}>
-          Eventos Esportivos
-        </ThemedText>
-      </ThemedView>
+    <View style={styles.container}>
+      <Text style={styles.header}>Eventos Esportivos</Text>
 
       <FlatList
         data={eventos}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={{ paddingVertical: 10 }}
+        contentContainerStyle={{ paddingBottom: 20 }}
         renderItem={({ item }) => (
           <TouchableOpacity style={styles.card}>
-            <Text style={styles.eventTitle}>{item.titulo}</Text>
-            <Text style={styles.eventInfo}>{item.data} • {item.local}</Text>
+            <View style={styles.cardHeader}>
+              <Text style={styles.eventTitle}>{item.titulo}</Text>
+              <Text style={styles.eventDate}>{item.data}</Text>
+            </View>
+            <Text style={styles.eventLocation}>{item.local}</Text>
             <Text style={styles.eventDescription}>{item.descricao}</Text>
           </TouchableOpacity>
         )}
       />
-    </ParallaxScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  container: {
+    marginTop: 40,
+    flex: 1,
+    backgroundColor: '#121212',
+    paddingHorizontal: 16,
+    paddingTop: 20,
   },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
-    marginBottom: 16,
-  },
-  card: {
-    backgroundColor: '#222',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 12,
-  },
-  eventTitle: {
-    fontSize: 18,
+  header: {
+    fontSize: 28,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 4,
+    marginBottom: 20,
+    fontFamily: Fonts.rounded,
   },
-  eventInfo: {
+  card: {
+    backgroundColor: '#1f1f1f',
+    borderRadius: 16,
+    padding: 20,
+    marginBottom: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 8,
+  },
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  eventTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+    flexShrink: 1,
+  },
+  eventDate: {
+    fontSize: 14,
+    color: '#ff2962',
+    fontWeight: 'bold',
+  },
+  eventLocation: {
     fontSize: 14,
     color: '#bbb',
     marginBottom: 8,
   },
   eventDescription: {
     fontSize: 14,
-    color: '#aaa',
+    color: '#ccc',
   },
 });
