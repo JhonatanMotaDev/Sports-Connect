@@ -1,7 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-// Mock data para o perfil e publicações
 const user = {
   name: 'João Silva',
   handle: '@joaosilvarun',

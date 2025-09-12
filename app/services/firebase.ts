@@ -1,18 +1,9 @@
-// services/firebase.ts
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-
 const firebaseConfig = {
-  apiKey: "SUA_API_KEY",
-  authDomain: "SEU_PROJECT_ID.firebaseapp.com",
-  projectId: "SEU_PROJECT_ID",
-  storageBucket: "SEU_PROJECT_ID.appspot.com",
-  messagingSenderId: "SEU_SENDER_ID",
-  appId: "SEU_APP_ID",
+  apiKey: "AIzaSyBCbkn62UvT9Zs9T7hA0qEIgEQO4Jk4TyI",
+  authDomain: "sportsconnect-c2fe4.firebaseapp.com",
+  projectId: "sportsconnect-c2fe4",
+  storageBucket: "sportsconnect-c2fe4.firebasestorage.app",
+  messagingSenderId: "1095499496218",
+  appId: "1:1095499496218:web:a9fa6543256ca747b60aa3",
+  measurementId: "G-TT032HZP51"
 };
-
-// Inicializa o Firebase
-const app = initializeApp(firebaseConfig);
-
-// Exporta Firestore
-export const db = getFirestore(app);

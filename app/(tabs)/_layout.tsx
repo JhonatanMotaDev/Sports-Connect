@@ -1,4 +1,3 @@
-// app/_layout.tsx
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -19,7 +18,7 @@ export default function Layout() {
       }}
     >
       <Tabs.Screen
-        name="index" // Home
+        name="index"
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color, size }) => (

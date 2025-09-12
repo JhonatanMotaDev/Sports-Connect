@@ -1,7 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-// Mock data para os eventos
 const eventsData = [
   {
     id: 'evt1',
@@ -12,7 +11,7 @@ const eventsData = [
     location: 'Boston, MA, EUA',
     description: 'Participe da lendária Maratona de Boston com o Time Novo Nordisk. Junte-se a nós para aumentar a conscientização sobre diabetes e inspirar a todos a viver uma vida ativa. Um evento para corredores de todos os níveis.',
     participants: [
-      { id: '1', name: 'Ana Souza', avatar: 'https://images.unsplash.com/photo-1549476041-3870814a044d?fit=crop&w=400&q=80' },
+      { id: '1', name: 'Sofia Souza', avatar: 'https://images.unsplash.com/photo-1549476041-3870814a044d?fit=crop&w=400&q=80' },
       { id: '2', name: 'Carlos Ribeiro', avatar: 'https://images.unsplash.com/photo-1571060965313-2d2f1f5d2b7c?fit=crop&w=400&q=80' },
       { id: '3', name: 'Fernanda Lima', avatar: 'https://images.unsplash.com/photo-1517592994974-90a612085731?fit=crop&w=400&q=80' },
     ],
@@ -28,8 +27,8 @@ const eventsData = [
     description: 'Um evento de ciclismo para celebrar a saúde e o bem-estar. A rota passa pelas belas paisagens da Dinamarca, com apoio total ao longo do percurso. Aberto a ciclistas de todos os níveis.',
     participants: [
       { id: '1', name: 'Pedro Alves', avatar: 'https://images.unsplash.com/photo-1506114177439-01580214a1a6?fit=crop&w=400&q=80' },
-      { id: '2', name: 'Mariana Costa', avatar: 'https://images.unsplash.com/photo-1517178120689-d106c117b9b1?fit=crop&w=400&q=80' },
-      { id: '3', name: 'Jorge Souza', avatar: 'https://images.unsplash.com/photo-1507720970717-d95a28b056be?fit=crop&w=400&q=80' },
+      { id: '2', name: 'Rafael Costa', avatar: 'https://images.unsplash.com/photo-1517178120689-d106c117b9b1?fit=crop&w=400&q=80' },
+      { id: '3', name: 'Ruan Souza', avatar: 'https://images.unsplash.com/photo-1507720970717-d95a28b056be?fit=crop&w=400&q=80' },
     ],
     coverImage: 'https://scontent.fmoc3-1.fna.fbcdn.net/v/t39.30808-6/508456791_9745107635616646_5517243033239801517_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=0b6b33&_nc_ohc=hDwQMgnJP2IQ7kNvwGYOiqZ&_nc_oc=AdlkkMoG8NRLatgfQc81K--RoDI3FQJ9Qvnk6a6YJhwwlI6gOPwib8YBNJMqKMx3up0&_nc_zt=23&_nc_ht=scontent.fmoc3-1.fna&_nc_gid=SqUZjKsG6sgFZuSNFJNm7Q&oh=00_AfaNnEMFvEcAqhtGW1bnHvYq-dAi9EsMyAMJcFJ-jrsWIg&oe=68C9FB82',
   },

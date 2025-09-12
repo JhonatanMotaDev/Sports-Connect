@@ -1,5 +1,4 @@
-// services/eventService.ts
-import { db } from "config/firebaseConfig"; // "../config" se services e config estiverem no mesmo nível
+import { db } from "config/firebaseConfig";
 import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore";
 
 const eventsCollection = collection(db, "events");

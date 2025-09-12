@@ -30,12 +30,11 @@ export default function EventsScreen() {
     try {
       await createEvent({ title, location, description });
 
-      // Resetar campos
       setTitle("");
       setLocation("");
       setDescription("");
 
-      await loadEvents(); // Atualiza lista
+      await loadEvents();
     } catch (err) {
       console.error(err);
       Alert.alert("Erro ao adicionar evento");
@@ -56,7 +55,6 @@ export default function EventsScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>Eventos</Text>
 
-      {/* Formulário de criação */}
       <View style={styles.form}>
         <TextInput
           placeholder="Título"
@@ -85,7 +83,6 @@ export default function EventsScreen() {
         </Pressable>
       </View>
 
-      {/* Lista de eventos */}
       <FlatList
         data={events}
         keyExtractor={item => item.id}
