@@ -1,4 +1,4 @@
-# SportsConnect
+# SportsConnect 🏌️‍♀️
 
 SportsConnect é uma aplicação móvel voltada para **promoção de comunidades mais saudáveis através do esporte**. O app permite que usuários encontrem, participem e criem eventos esportivos abertos à comunidade, incentivando a prática de atividades físicas e a integração social.
 
