@@ -18,8 +18,8 @@ SportsConnect é uma aplicação móvel voltada para **promoção de comunidades
 - **UI Responsiva:** Componentes reutilizáveis e estilizados para fornecer uma interface agradável e intuitiva, mantendo padrão de design consistente.
 
 ## Interface:
-![Interface 1](https://github.com/user-attachments/assets/0b4a1d1a-318b-4e8b-a935-41e61afc63c4) ![Interface 2](https://github.com/user-attachments/assets/0a4e1b64-72b7-42c9-a652-1d44f77f49c8) ![Interface 3](https://github.com/user-attachments/assets/b1c2d97b-4adf-488b-9bd4-6a57145cee1f)
-![Interface 4](https://github.com/user-attachments/assets/231eda11-94ec-4b21-a173-49d7740b51a8) ![Interface 5](https://github.com/user-attachments/assets/2566b9a3-f397-4fda-b6dd-67ef847ba077) ![Interface 6](https://github.com/user-attachments/assets/a53c14f9-bdb1-45bd-8af5-b23ab994322d)
+![Component 2 1](https://github.com/user-attachments/assets/7102b940-4cd6-4162-a3d5-fdba3fd3bbc4)
+
 
 ## Tecnologias Utilizadas
 
