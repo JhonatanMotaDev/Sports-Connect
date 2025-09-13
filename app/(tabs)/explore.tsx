@@ -73,18 +73,16 @@ export default function EventosScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 40,
     flex: 1,
     backgroundColor: '#121212',
     paddingHorizontal: 16,
-    paddingTop: 20,
+    paddingTop: 42,
   },
   header: {
-    fontSize: 28,
+    fontSize: 32,
     fontWeight: 'bold',
     color: '#fff',
     marginBottom: 20,
-    fontFamily: Fonts.rounded,
   },
   card: {
     backgroundColor: '#1f1f1f',
