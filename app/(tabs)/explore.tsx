@@ -44,7 +44,78 @@ const eventos = [
     local: 'Quadra Externa Funorte',
     descricao: 'Atividade física funcional com circuito de exercícios, aberta a todos os estudantes da Funorte.',
   },
+  {
+    id: '7',
+    titulo: 'Campeonato de Vôlei de Praia - Afya',
+    data: '18/10/2025',
+    local: 'Quadra de Areia Afya',
+    descricao: 'Torneio de vôlei de praia em duplas, aberto a alunos e professores.',
+  },
+  {
+    id: '8',
+    titulo: 'Pedalada Ecológica Unimontes',
+    data: '20/10/2025',
+    local: 'Saída do Campus Unimontes',
+    descricao: 'Passeio ciclístico em grupo pelas principais avenidas da cidade, incentivando a prática esportiva sustentável.',
+  },
+  {
+    id: '9',
+    titulo: 'Campeonato de Xadrez Acadêmico - Funorte',
+    data: '25/10/2025',
+    local: 'Auditório Funorte',
+    descricao: 'Competição de xadrez entre alunos de diferentes cursos. Premiação para os finalistas.',
+  },
+  {
+    id: '10',
+    titulo: 'Aula Aberta de Zumba - Afya',
+    data: '28/10/2025',
+    local: 'Quadra Poliesportiva Afya',
+    descricao: 'Aula coletiva de dança e atividade aeróbica animada, aberta a toda comunidade.',
+  },
+  {
+    id: '11',
+    titulo: 'Torneio de Tênis Universitário',
+    data: '02/11/2025',
+    local: 'Quadras de Tênis Unimontes',
+    descricao: 'Competição de tênis individual e em duplas, voltada para a comunidade acadêmica.',
+  },
+  {
+    id: '12',
+    titulo: 'Caminhada da Saúde - Funorte',
+    data: '09/11/2025',
+    local: 'Lagoa da Pampulha - Montes Claros',
+    descricao: 'Atividade de caminhada leve para promoção da saúde e bem-estar dos estudantes.',
+  },
+  {
+    id: '13',
+    titulo: 'Campeonato de Handebol - Afya',
+    data: '15/11/2025',
+    local: 'Ginásio Afya',
+    descricao: 'Torneio entre turmas e cursos, incentivando a prática do handebol na comunidade acadêmica.',
+  },
+  {
+    id: '14',
+    titulo: 'Festival de Atletismo Unimontes',
+    data: '20/11/2025',
+    local: 'Pista de Atletismo Unimontes',
+    descricao: 'Provas de corrida, salto e arremesso, abertas a estudantes e comunidade externa.',
+  },
+  {
+    id: '15',
+    titulo: 'Campeonato de E-Sports - Funorte',
+    data: '25/11/2025',
+    local: 'Laboratório de Informática Funorte',
+    descricao: 'Competição de jogos eletrônicos entre os alunos, com destaque para League of Legends e FIFA.',
+  },
+  {
+    id: '16',
+    titulo: 'Treino Aberto de CrossFit - Afya',
+    data: '30/11/2025',
+    local: 'Estacionamento Afya',
+    descricao: 'Sessão aberta de treino funcional e crossfit para a comunidade acadêmica.',
+  },
 ];
+
 
 
 export default function EventosScreen() {
