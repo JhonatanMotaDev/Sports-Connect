@@ -64,7 +64,6 @@ export default function EventsScreen() {
     setEditingEventId(null);
   }
 
-  // AQUI FOI FEITA A ALTERAÇÃO: Alert.alert foi removido.
   function handleDelete(id: string) {
     setEvents(events.filter(e => e.id !== id));
   }
