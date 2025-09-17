@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { View, FlatList, Text, StyleSheet, TextInput, Pressable, Animated, Alert } from "react-native";
 import { Feather } from "@expo/vector-icons";
+
+const API_URL = "192.168.0.113";
 
 export default function EventsScreen() {
   const [events, setEvents] = useState<any[]>([]);
@@ -10,6 +12,10 @@ export default function EventsScreen() {
   const [editingEventId, setEditingEventId] = useState<string | null>(null);
   const [message, setMessage] = useState("");
   const fadeAnim = useState(new Animated.Value(0))[0];
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
 
   function showMessage(msg: string) {
     setMessage(msg);
@@ -28,51 +34,104 @@ export default function EventsScreen() {
     });
   }
 
-  function handleAddEvent() {
+  async function fetchEvents() {
+    try {
+      const response = await fetch(API_URL);
+      const data = await response.json();
+      setEvents(data);
+    } catch (error) {
+      showMessage("Erro ao carregar eventos.");
+      console.error(error);
+    }
+  }
+
+  async function handleAddEvent() {
     if (!title || !location) {
       showMessage("Por favor, preencha o Título e o Local!");
       return;
     }
 
-    const newEvent = {
-      id: Math.random().toString(),
-      title,
-      location,
-      description,
-    };
+    try {
+      const newEvent = { title, location, description };
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newEvent),
+      });
 
-    setEvents([newEvent, ...events]);
-    setTitle("");
-    setLocation("");
-    setDescription("");
+      if (!response.ok) {
+        throw new Error("Erro ao adicionar evento.");
+      }
+
+      const addedEvent = await response.json();
+      setEvents([addedEvent, ...events]);
+      showMessage("Evento adicionado com sucesso!");
+      setTitle("");
+      setLocation("");
+      setDescription("");
+    } catch (error) {
+      showMessage("Erro ao adicionar evento.");
+      console.error(error);
+    }
   }
 
-  function handleUpdateEvent() {
+  async function handleUpdateEvent() {
     if (!title || !location || !editingEventId) {
       showMessage("Preencha os campos e selecione um evento para atualizar.");
       return;
     }
 
-    const updatedEvents = events.map(e =>
-      e.id === editingEventId ? { ...e, title, location, description } : e
-    );
-    setEvents(updatedEvents);
-    
-    setTitle("");
-    setLocation("");
-    setDescription("");
-    setEditingEventId(null);
+    try {
+      const updatedEvent = { title, location, description };
+      const response = await fetch(`${API_URL}/${editingEventId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedEvent),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao atualizar evento.");
+      }
+
+      await fetchEvents();
+      showMessage("Evento atualizado com sucesso!");
+      setTitle("");
+      setLocation("");
+      setDescription("");
+      setEditingEventId(null);
+    } catch (error) {
+      showMessage("Erro ao atualizar evento.");
+      console.error(error);
+    }
   }
 
-  function handleDelete(id: string) {
-    setEvents(events.filter(e => e.id !== id));
+  async function handleDelete(id: string) {
+    try {
+      const response = await fetch(`${API_URL}/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao excluir evento.");
+      }
+
+      setEvents(events.filter((e) => e._id !== id));
+      showMessage("Evento excluído com sucesso!");
+    } catch (error) {
+      showMessage("Erro ao excluir evento.");
+      console.error(error);
+    }
   }
 
   function handleEdit(event: any) {
     setTitle(event.title);
     setLocation(event.location);
     setDescription(event.description);
-    setEditingEventId(event.id);
+    setEditingEventId(event._id);
   }
 
   return (
@@ -113,7 +172,7 @@ export default function EventsScreen() {
           </Pressable>
         )}
       </View>
-      
+
       {message ? (
         <Animated.View style={[styles.messageBox, { opacity: fadeAnim }]}>
           <Text style={styles.messageText}>{message}</Text>
@@ -122,7 +181,7 @@ export default function EventsScreen() {
 
       <FlatList
         data={events}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item._id}
         contentContainerStyle={{ paddingBottom: 120 }}
         ListEmptyComponent={() => (
           <View style={styles.emptyList}>
@@ -142,7 +201,7 @@ export default function EventsScreen() {
               <Pressable style={styles.editButton} onPress={() => handleEdit(item)}>
                 <Text style={styles.actionText}>Editar</Text>
               </Pressable>
-              <Pressable style={styles.deleteButton} onPress={() => handleDelete(item.id)}>
+              <Pressable style={styles.deleteButton} onPress={() => handleDelete(item._id)}>
                 <Text style={styles.actionText}>Excluir</Text>
               </Pressable>
             </View>

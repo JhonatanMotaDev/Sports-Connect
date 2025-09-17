@@ -1,15 +1,19 @@
 const express = require('express');
-
 const app = express();
+const connectDB = require('./db');
+const eventsRoutes = require('./routes/events');
 
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
+connectDB();
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.send('Olá! Este é o backend do seu aplicativo React Native.');
+  res.send('Welcome to the backend API!');
 });
 
-app.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost:${port}`);
+app.use('/api/events', eventsRoutes);
+
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
