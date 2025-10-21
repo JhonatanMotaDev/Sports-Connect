@@ -1,6 +1,5 @@
 const { body, param, query, validationResult } = require('express-validator');
 
-// Validation middleware
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -13,7 +12,6 @@ const handleValidationErrors = (req, res, next) => {
   next();
 };
 
-// User validation rules
 const validateUser = [
   body('name')
     .trim()
@@ -42,7 +40,6 @@ const validateUser = [
   handleValidationErrors
 ];
 
-// Event validation rules
 const validateEvent = [
   body('title')
     .trim()
@@ -87,7 +84,6 @@ const validateEvent = [
   handleValidationErrors
 ];
 
-// Pagination validation
 const validatePagination = [
   query('page')
     .optional()
@@ -100,7 +96,6 @@ const validatePagination = [
   handleValidationErrors
 ];
 
-// ObjectId validation
 const validateObjectId = (paramName) => [
   param(paramName)
     .isMongoId()

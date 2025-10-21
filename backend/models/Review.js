@@ -62,16 +62,12 @@ const reviewSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Ensure one review per user per event
 reviewSchema.index({ event: 1, reviewer: 1, reviewee: 1 }, { unique: true });
 
-// Index for finding reviews by reviewee
 reviewSchema.index({ reviewee: 1 });
 
-// Index for finding reviews by event
 reviewSchema.index({ event: 1 });
 
-// Virtual for overall rating
 reviewSchema.virtual('overallRating').get(function() {
   if (this.categories) {
     const categories = Object.values(this.categories).filter(val => val !== undefined);

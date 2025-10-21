@@ -12,7 +12,6 @@ export default function EventsScreen() {
     const [message, setMessage] = useState("");
     const fadeAnim = useState(new Animated.Value(0))[0];
 
-    // Use API hooks
     const { data: events, loading, error, refetch } = useEvents();
     const { execute, loading: operationLoading } = useApiOperations();
 
@@ -42,14 +41,14 @@ export default function EventsScreen() {
         const eventData = {
             title,
             description,
-            sport: 'other', // Default sport
+            sport: 'other',
             skillLevel: 'all' as const,
-            date: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Tomorrow
-            duration: 120, // 2 hours
+            date: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+            duration: 120,
             maxParticipants: 10,
             location: {
                 type: 'Point' as const,
-                coordinates: [0, 0] as [number, number], // Default coordinates
+                coordinates: [0, 0] as [number, number],
                 address: location,
                 city: 'Unknown',
                 state: 'Unknown',

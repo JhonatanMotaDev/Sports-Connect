@@ -3,7 +3,6 @@ const router = express.Router();
 const User = require('../models/User');
 const Event = require('../models/Event');
 
-// GET /api/users - Get all users with filtering
 router.get('/', async (req, res) => {
   try {
     const {
@@ -18,7 +17,6 @@ router.get('/', async (req, res) => {
       radius = 10
     } = req.query;
 
-    // Build filter object
     const filter = { isActive: true };
 
     if (search) {
@@ -37,17 +35,15 @@ router.get('/', async (req, res) => {
       filter['location.city'] = new RegExp(city, 'i');
     }
 
-    // Execute query
     let query = User.find(filter);
 
-    // Geospatial filtering
     if (lat && lng) {
       query = query.where('location.coordinates').near({
         center: {
           type: 'Point',
           coordinates: [parseFloat(lng), parseFloat(lat)]
         },
-        maxDistance: radius * 1000, // Convert km to meters
+        maxDistance: radius * 1000,
         spherical: true
       });
     }
@@ -80,7 +76,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET /api/users/:id - Get single user
 router.get('/:id', async (req, res) => {
   try {
     const user = await User.findById(req.params.id)
@@ -94,7 +89,6 @@ router.get('/:id', async (req, res) => {
       });
     }
 
-    // Get user's events
     const events = await Event.find({
       $or: [
         { organizer: req.params.id },
@@ -123,7 +117,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// POST /api/users - Create new user
 router.post('/', async (req, res) => {
   try {
     const user = new User(req.body);
@@ -146,7 +139,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// PUT /api/users/:id - Update user
 router.put('/:id', async (req, res) => {
   try {
     const user = await User.findByIdAndUpdate(
@@ -179,7 +171,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE /api/users/:id - Delete user (soft delete)
 router.delete('/:id', async (req, res) => {
   try {
     const user = await User.findByIdAndUpdate(
@@ -209,7 +200,6 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-// GET /api/users/:id/events - Get user's events
 router.get('/:id/events', async (req, res) => {
   try {
     const { page = 1, limit = 10, type = 'all' } = req.query;
@@ -259,7 +249,6 @@ router.get('/:id/events', async (req, res) => {
   }
 });
 
-// GET /api/users/:id/stats - Get user statistics
 router.get('/:id/stats', async (req, res) => {
   try {
     const { id } = req.params;
@@ -302,7 +291,6 @@ router.get('/:id/stats', async (req, res) => {
   }
 });
 
-// POST /api/users/:id/location - Update user location
 router.post('/:id/location', async (req, res) => {
   try {
     const { coordinates, address, city, state, country } = req.body;
@@ -319,7 +307,7 @@ router.post('/:id/location', async (req, res) => {
       {
         location: {
           type: 'Point',
-          coordinates: [coordinates[0], coordinates[1]], // [lng, lat]
+          coordinates: [coordinates[0], coordinates[1]],
           address,
           city,
           state,

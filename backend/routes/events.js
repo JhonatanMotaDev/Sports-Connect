@@ -3,7 +3,6 @@ const router = express.Router();
 const Event = require('../models/Event');
 const User = require('../models/User');
 
-// GET /api/events - Get all events with filtering and pagination
 router.get('/', async (req, res) => {
   try {
     const {
@@ -17,29 +16,25 @@ router.get('/', async (req, res) => {
       search,
       lat,
       lng,
-      radius = 10 // in kilometers
+      radius = 10
     } = req.query;
 
-    // Build filter object
     const filter = { status: 'published' };
 
     if (sport) filter.sport = sport;
     if (skillLevel) filter.skillLevel = skillLevel;
     if (city) filter['location.city'] = new RegExp(city, 'i');
 
-    // Date filtering
     if (dateFrom || dateTo) {
       filter.date = {};
       if (dateFrom) filter.date.$gte = new Date(dateFrom);
       if (dateTo) filter.date.$lte = new Date(dateTo);
     }
 
-    // Text search
     if (search) {
       filter.$text = { $search: search };
     }
 
-    // Geospatial filtering
     let query = Event.find(filter);
 
     if (lat && lng) {
@@ -48,12 +43,11 @@ router.get('/', async (req, res) => {
           type: 'Point',
           coordinates: [parseFloat(lng), parseFloat(lat)]
         },
-        maxDistance: radius * 1000, // Convert km to meters
+        maxDistance: radius * 1000,
         spherical: true
       });
     }
 
-    // Execute query with pagination
     const events = await query
       .populate('organizer', 'name profileImage')
       .populate('participants.user', 'name profileImage')
@@ -83,7 +77,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET /api/events/:id - Get single event
 router.get('/:id', async (req, res) => {
   try {
     const event = await Event.findById(req.params.id)
@@ -112,12 +105,11 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// POST /api/events - Create new event
 router.post('/', async (req, res) => {
   try {
     const eventData = {
       ...req.body,
-      organizer: req.body.organizer || '507f1f77bcf86cd799439011' // Default organizer for now
+      organizer: req.body.organizer || '507f1f77bcf86cd799439011'
     };
 
     const event = new Event(eventData);
@@ -142,7 +134,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// PUT /api/events/:id - Update event
 router.put('/:id', async (req, res) => {
   try {
     const event = await Event.findByIdAndUpdate(
@@ -173,7 +164,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE /api/events/:id - Delete event
 router.delete('/:id', async (req, res) => {
   try {
     const event = await Event.findByIdAndDelete(req.params.id);
@@ -199,7 +189,6 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-// POST /api/events/:id/join - Join event
 router.post('/:id/join', async (req, res) => {
   try {
     const { userId } = req.body;
@@ -239,7 +228,6 @@ router.post('/:id/join', async (req, res) => {
   }
 });
 
-// DELETE /api/events/:id/leave - Leave event
 router.delete('/:id/leave', async (req, res) => {
   try {
     const { userId } = req.body;
@@ -279,7 +267,6 @@ router.delete('/:id/leave', async (req, res) => {
   }
 });
 
-// GET /api/events/user/:userId - Get events by user
 router.get('/user/:userId', async (req, res) => {
   try {
     const { page = 1, limit = 10, type = 'all' } = req.query;

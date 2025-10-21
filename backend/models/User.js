@@ -44,7 +44,7 @@ const userSchema = new mongoose.Schema({
       default: 'Point'
     },
     coordinates: {
-      type: [Number], // [longitude, latitude]
+      type: [Number],
       index: '2dsphere'
     },
     address: String,
@@ -76,18 +76,14 @@ const userSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Index for geospatial queries
 userSchema.index({ 'location.coordinates': '2dsphere' });
 
-// Index for text search
 userSchema.index({ name: 'text', bio: 'text' });
 
-// Virtual for full name
 userSchema.virtual('fullName').get(function() {
   return this.name;
 });
 
-// Method to get public profile
 userSchema.methods.getPublicProfile = function() {
   const user = this.toObject();
   delete user.email;

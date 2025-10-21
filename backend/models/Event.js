@@ -33,7 +33,7 @@ const eventSchema = new mongoose.Schema({
     }
   },
   duration: {
-    type: Number, // in minutes
+    type: Number,
     required: [true, 'Duration is required'],
     min: [15, 'Duration must be at least 15 minutes'],
     max: [480, 'Duration cannot exceed 8 hours']
@@ -55,7 +55,7 @@ const eventSchema = new mongoose.Schema({
       default: 'Point'
     },
     coordinates: {
-      type: [Number], // [longitude, latitude]
+      type: [Number],
       required: true,
       index: '2dsphere'
     },
@@ -121,7 +121,7 @@ const eventSchema = new mongoose.Schema({
       default: 'USD',
       enum: ['USD', 'EUR', 'GBP', 'CAD', 'AUD']
     },
-    includes: [String] // What's included in the cost
+    includes: [String]
   },
   status: {
     type: String,
@@ -129,7 +129,7 @@ const eventSchema = new mongoose.Schema({
     default: 'draft'
   },
   tags: [String],
-  images: [String], // URLs to event images
+  images: [String],
   isRecurring: {
     type: Boolean,
     default: false
@@ -153,34 +153,26 @@ const eventSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Index for geospatial queries
 eventSchema.index({ 'location.coordinates': '2dsphere' });
 
-// Index for text search
 eventSchema.index({ title: 'text', description: 'text', sport: 'text' });
 
-// Index for date queries
 eventSchema.index({ date: 1 });
 
-// Index for sport and skill level
 eventSchema.index({ sport: 1, skillLevel: 1 });
 
-// Virtual for available spots
 eventSchema.virtual('availableSpots').get(function() {
   return this.maxParticipants - this.currentParticipants;
 });
 
-// Virtual for is full
 eventSchema.virtual('isFull').get(function() {
   return this.currentParticipants >= this.maxParticipants;
 });
 
-// Virtual for is past
 eventSchema.virtual('isPast').get(function() {
   return this.date < new Date();
 });
 
-// Method to add participant
 eventSchema.methods.addParticipant = function(userId) {
   if (this.isFull) {
     throw new Error('Event is full');
@@ -200,14 +192,12 @@ eventSchema.methods.addParticipant = function(userId) {
   return this.save();
 };
 
-// Method to remove participant
 eventSchema.methods.removeParticipant = function(userId) {
   this.participants = this.participants.filter(p => p.user.toString() !== userId.toString());
   this.currentParticipants = this.participants.length;
   return this.save();
 };
 
-// Pre-save middleware to update currentParticipants
 eventSchema.pre('save', function(next) {
   if (this.isModified('participants')) {
     this.currentParticipants = this.participants.length;
