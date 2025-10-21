@@ -1,8 +1,13 @@
 const mongoose = require('mongoose');
 
-const dbUri = 'mongodb+srv://jhonatanmotadev_db_user:<db_password>@cluster0.cpks0ds.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
-
 const connectDB = async () => {
+  const dbUri = process.env.MONGO_URI;
+
+  if (!dbUri) {
+    console.error('MONGO_URI não definido. Configure a variável de ambiente MONGO_URI.');
+    process.exit(1);
+  }
+
   try {
     await mongoose.connect(dbUri);
     console.log('Conexão com o MongoDB estabelecida!');
