@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { View, FlatList, Text, StyleSheet, TextInput, Pressable, Animated, Alert } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
-const API_URL = "192.168.0.113";
+// Prefer environment variable from Expo; fallback to local dev
+const API_URL = (process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000') + '/api/events';
 
 export default function EventsScreen() {
   const [events, setEvents] = useState<any[]>([]);
