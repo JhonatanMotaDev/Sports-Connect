@@ -7,7 +7,7 @@
 ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 
-**Plataforma mobile para promover comunidades saudáveis através do esporte**
+**App mobile criado para promover comunidades saudáveis através do esporte**
 
 </div>
 
@@ -15,11 +15,11 @@
 
 ## 📋 Sobre
 
-Sports Connect é uma aplicação móvel desenvolvida como projeto de extensão e pesquisa do curso de Engenharia da Computação da Afya. O app conecta pessoas através de eventos esportivos, promovendo saúde e integração social.
+O Sports Connect é uma aplicação mobile (iOS & Android) desenvolvida como projeto de extensão e pesquisa do curso de Engenharia da Computação da Afya. O app conecta pessoas através de eventos esportivos, promovendo saúde e integração social.
 
 ### 🎯 Objetivo
 
-Facilitar a criação, descoberta e participação em eventos esportivos comunitários, incentivando a prática de atividades físicas e a formação de grupos locais.
+Facilitar a criação, descoberta e participação em eventos esportivos, incentivando a prática de atividades físicas e a formação de grupos locais.
 
 ---
 
@@ -28,8 +28,6 @@ Facilitar a criação, descoberta e participação em eventos esportivos comunit
 - **Criação de Eventos**: Crie eventos com título, data, local e descrição
 - **Exploração**: Navegue e descubra eventos próximos ou relevantes
 - **Participação**: Confirme presença e integre comunidades esportivas
-- **Tema Claro/Escuro**: Suporte completo aos modos do dispositivo
-- **Interface Responsiva**: Design moderno e intuitivo
 
 ---
 
@@ -45,18 +43,42 @@ Facilitar a criação, descoberta e participação em eventos esportivos comunit
 
 ```
 Sports-Connect/
-├── app/                # Estrutura principal (Expo Router)
-├── src/
-│   ├── screens/       # Telas da aplicação
-│   ├── services/      # Serviços e API
-│   ├── config/        # Configurações
-│   ├── components/    # Componentes reutilizáveis
-│   └── types/         # Tipos TypeScript
-├── assets/            # Recursos estáticos
-└── package.json
+├── app/                        # Estrutura principal do front-end (Expo Router)
+│   ├── (tabs)/                 # Navegação por abas da aplicação
+│   │   ├── _layout.tsx         # Layout base das tabs
+│   │   ├── events.tsx          # Tela de eventos esportivos
+│   │   ├── explore.tsx         # Tela de exploração de atividades e locais
+│   │   ├── index.tsx           # Tela inicial (home)
+│   │   └── profile.tsx         # Tela de perfil do usuário
+│
+├── backend/                    # Estrutura do servidor Node.js/Express
+│   ├── config/                 # Configurações do servidor e banco de dados
+│   │   ├── config.js
+│   │   └── db.js
+│   │
+│   ├── middleware/             # Middlewares de autenticação e validação
+│   │   ├── rateLimiter.js
+│   │   └── validation.js
+│   │
+│   ├── models/                 # Modelos de dados (MongoDB/Mongoose)
+│   │   ├── Event.js
+│   │   ├── Review.js
+│   │   └── User.js
+│   │
+│   ├── routes/                 # Rotas da API
+│   │   ├── events.js
+│   │   └── users.js
+│   │
+│   ├── scripts/                # Scripts utilitários ou de inicialização
+│   │   └── setup.js
+│   │
+│   └── utils/                  # Funções auxiliares
+│       └── helpers.js
+│
+├── .env                        # Variáveis de ambiente (configurações sensíveis)
+├── package-lock.json           # Controle de dependências
+└── package.json                # Metadados e dependências do projeto
 ```
-
----
 
 ## 🚀 Instalação
 
@@ -139,15 +161,34 @@ eas build --platform ios
 **Jhonatan Mota** - [@JhonatanMotaDev](https://github.com/JhonatanMotaDev)
 
 ### Instituição
-Afya - Engenharia da Computação  
-Projeto de Extensão e Pesquisa
+Afya | Montes Claros - Departamento de Engenharia  
+Projeto de Extensão e Pesquisa do Curso de Engenharia da Computação
 
 ---
 
-## 📄 Licença
+## 📄 Licença MIT
 
-Projeto acadêmico desenvolvido para o curso de Engenharia da Computação da Afya.
+MIT License
 
+Copyright (c) [2025] [Jhonatan Mota]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 ---
 
 <div align="center">
