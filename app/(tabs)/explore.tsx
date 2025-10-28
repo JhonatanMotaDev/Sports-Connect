@@ -4,88 +4,80 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const MAX_DISTANCE_KM = 5.0;
 
-const dadosEventosMock = [
+const dadosLocaisMock = [
   {
     id: '1',
-    titulo: 'Campeonato de Futsal - Afya',
-    data: '15/09/2025',
-    local: 'Ginásio Afya',
-    descricao: 'Torneio de futsal entre cursos da Afya.',
-    coordenadas: { lat: -16.7380, lon: -43.8730 }
+    nome: 'Centro Esportivo Afya',
+    tipo: 'Ginásio/Quadras',
+    endereco: 'Av. Aida Mainartina Paraíso. 80 - Ibituruna',
+    coordenadas: { lat: -16.7380, lon: -43.8730 },
+    comodidades: ['Ginásio Poliesportivo', 'Vestiários', 'Estacionamento']
   },
   {
     id: '2',
-    titulo: 'Corrida de Rua Unimontes 10km',
-    data: '22/09/2025',
-    local: 'Campus Unimontes - Montes Claros',
-    descricao: 'Evento aberto a estudantes e comunidade.',
-    coordenadas: { lat: -16.7150, lon: -43.8650 }
+    nome: 'Campus Unimontes - Centro Esportivo',
+    tipo: 'Universidade',
+    endereco: 'Av. Prof. Ruy Braga - Vila Mauriceia',
+    coordenadas: { lat: -16.7150, lon: -43.8650 },
+    comodidades: ['Piscina Olímpica', 'Pista de Atletismo', 'Quadras', 'Campo de Futebol']
   },
   {
     id: '3',
-    titulo: 'Torneio de Basquete 3x3 Funorte',
-    data: '28/09/2025',
-    local: 'Quadra Poliesportiva Funorte',
-    descricao: 'Torneio amistoso de basquete 3x3.',
-    coordenadas: { lat: -16.7050, lon: -43.8900 }
+    nome: 'Campus Funorte JK',
+    tipo: 'Universidade',
+    endereco: 'Av. Osmane Barbosa, 1111 - JK',
+    coordenadas: { lat: -16.7050, lon: -43.8900 },
+    comodidades: ['Quadra Poliesportiva', 'Campo de Futebol', 'Academia']
   },
   {
     id: '4',
-    titulo: 'Aula Aberta de Yoga - Afya',
-    data: '30/09/2025',
-    local: 'Parque da Cidade - Afya',
-    descricao: 'Sessão de relaxamento e bem-estar.',
-    coordenadas: { lat: -16.7380, lon: -43.8730 }
+    nome: 'Praça de Esportes M. Claros',
+    tipo: 'Centro Esportivo Público',
+    endereco: 'R. Santa Lúcia, 234 - Todos os Santos',
+    coordenadas: { lat: -16.7260, lon: -43.8600 },
+    comodidades: ['Piscinas', 'Quadras', 'Ginásio', 'Aulas Gratuitas']
   },
   {
     id: '5',
-    titulo: 'Desafio de Natação Unimontes',
-    data: '05/10/2025',
-    local: 'Piscina Olímpica Unimontes',
-    descricao: 'Provas de natação em várias distâncias.',
-    coordenadas: { lat: -16.7160, lon: -43.8660 }
+    nome: 'AABB Montes Claros',
+    tipo: 'Clube',
+    endereco: 'R. Olímpio Guedes, 137 - Constantino',
+    coordenadas: { lat: -16.7190, lon: -43.8550 },
+    comodidades: ['Piscinas', 'Campos de Futebol', 'Quadras de Tênis', 'Restaurante']
   },
   {
     id: '6',
-    titulo: 'Circuito Funcional Funorte',
-    data: '12/10/2025',
-    local: 'Quadra Externa Funorte',
-    descricao: 'Atividade física funcional com circuito.',
-    coordenadas: { lat: -16.7060, lon: -43.8910 }
+    nome: 'Arena MOC Society',
+    tipo: 'Quadra de Society',
+    endereco: 'Av. Donato Quintino, 90 - Cidade Nova',
+    coordenadas: { lat: -16.7020, lon: -43.8580 },
+    comodidades: ['Vestiário', 'Bar', 'Estacionamento', 'Churrasqueira']
   },
   {
     id: '7',
-    titulo: 'Campeonato de Vôlei de Praia - Afya',
-    data: '18/10/2025',
-    local: 'Quadra de Areia Afya',
-    descricao: 'Torneio de vôlei de praia em duplas.',
-    coordenadas: { lat: -16.7380, lon: -43.8730 }
+    nome: 'MOC Beach Arena',
+    tipo: 'Quadra de Beach Tennis',
+    endereco: 'R. Eng. João Antônio Pimenta, 500 - Augusta Mota',
+    coordenadas: { lat: -16.7290, lon: -43.8790 },
+    comodidades: ['Vestiário', 'Lanchonete', 'Aulas', 'Wi-Fi']
   },
   {
     id: '8',
-    titulo: 'Pedalada Ecológica Unimontes',
-    data: '20/10/2025',
-    local: 'Saída do Campus Unimontes',
-    descricao: 'Passeio ciclístico em grupo.',
-    coordenadas: { lat: -16.7140, lon: -43.8640 }
-  },
-  {
-    id: '16',
-    titulo: 'Treino Aberto de Futsal - UFMG',
-    data: '30/11/2025',
-    local: 'Quadra 1 - UFMG',
-    descricao: 'Treino de futsal para a comunidade acadêmica.',
-    coordenadas: { lat: -16.8000, lon: -43.9500 }
+    nome: 'Clube Campestre Pentáurea',
+    tipo: 'Clube',
+    endereco: 'BR-365, Km 15 - Zona Rural',
+    coordenadas: { lat: -16.6350, lon: -43.8450 },
+    comodidades: ['Piscinas', 'Campos', 'Restaurante', 'Hospedagem']
   },
 ];
 
-type Evento = {
+type LocalEsportivo = {
   id: string;
-  titulo: string;
-  data: string;
-  local: string;
-  descricao: string;
+  nome: string;
+  tipo: string;
+  endereco: string;
   coordenadas: { lat: number; lon: number };
+  comodidades: string[];
   distance?: number;
 };
 
@@ -105,9 +97,9 @@ const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: numbe
   return R * c;
 };
 
-export default function EventosScreen() {
-  const [todosOsEventos] = useState<Evento[]>(dadosEventosMock);
-  const [eventosFiltrados, setEventosFiltrados] = useState<Evento[]>([]);
+export default function LocaisEsportivosScreen() {
+  const [todosOsLocais] = useState<LocalEsportivo[]>(dadosLocaisMock);
+  const [locaisFiltrados, setLocaisFiltrados] = useState<LocalEsportivo[]>([]);
 
   const [userLocation, setUserLocation] = useState<{ lat: number; lon: number } | null>(null);
   const [locationError, setLocationError] = useState<string | null>(null);
@@ -117,13 +109,14 @@ export default function EventosScreen() {
     setIsLocationLoading(true);
     setLocationError(null);
 
-    const simulatedLocation = { lat: -16.7350, lon: -43.8700 };
+    const simulatedLocation = { lat: -16.7350, lon: -43.8700 }; 
 
     setTimeout(() => {
       setUserLocation(simulatedLocation);
       setIsLocationLoading(false);
-    }, 2000);
+    }, 1000);
 
+    
   }, []);
 
   useEffect(() => {
@@ -131,23 +124,23 @@ export default function EventosScreen() {
   }, [fetchUserLocation]);
 
   useEffect(() => {
-    if (userLocation && todosOsEventos.length > 0) {
-      const eventosProximos = todosOsEventos
-        .map(evento => {
-          const { lat, lon } = evento.coordenadas;
+    if (userLocation && todosOsLocais.length > 0) {
+      const locaisProximos = todosOsLocais
+        .map(local => {
+          const { lat, lon } = local.coordenadas;
           const distance = calculateDistance(userLocation.lat, userLocation.lon, lat, lon);
-          return { ...evento, distance };
+          return { ...local, distance };
         })
-        .filter(evento => evento.distance !== undefined && evento.distance <= MAX_DISTANCE_KM)
+        .filter(local => local.distance !== undefined && local.distance <= MAX_DISTANCE_KM)
         .sort((a, b) => (a.distance ?? 0) - (b.distance ?? 0));
 
-      setEventosFiltrados(eventosProximos);
+      setLocaisFiltrados(locaisProximos);
     } else if (!isLocationLoading && !userLocation) {
-      setEventosFiltrados([]);
+      setLocaisFiltrados([]);
     }
-  }, [todosOsEventos, userLocation, isLocationLoading]);
+  }, [todosOsLocais, userLocation, isLocationLoading]);
 
-  const EventCard = ({ item }: { item: Evento }) => {
+  const LocalCard = ({ item }: { item: LocalEsportivo }) => {
     const distanceText = item.distance !== undefined
       ? `${item.distance.toFixed(2)} km`
       : 'Calculando...';
@@ -155,11 +148,19 @@ export default function EventosScreen() {
     return (
       <TouchableOpacity style={styles.card}>
         <View style={styles.cardHeader}>
-          <Text style={styles.eventTitle}>{item.titulo}</Text>
-          <Text style={styles.eventDate}>{item.data}</Text>
+          <Text style={styles.localNome}>{item.nome}</Text>
+          <Text style={styles.localTipo}>{item.tipo}</Text>
         </View>
-        <Text style={styles.eventLocation}>{item.local}</Text>
-        <Text style={styles.eventDescription}>{item.descricao}</Text>
+
+        <Text style={styles.localEndereco}>{item.endereco}</Text>
+
+        <View style={styles.comodidadesContainer}>
+          {item.comodidades.map((comodidade, index) => (
+            <View key={index} style={styles.comodidadeTag}>
+              <Text style={styles.comodidadeTagText}>{comodidade}</Text>
+            </View>
+          ))}
+        </View>
 
         <View style={styles.distanceContainer}>
           <Text style={styles.distanceText}>
@@ -173,38 +174,42 @@ export default function EventosScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#121212" />
-      <Text style={styles.header}>Eventos Esportivos Perto de Você</Text>
+      <Text style={styles.header}>Locais Esportivos Perto de Você</Text>
 
       <View style={[styles.filterTag, locationError ? styles.errorTag : (userLocation ? styles.successTag : styles.loadingTag)]}>
         {isLocationLoading && <ActivityIndicator color="#fff" style={{ marginRight: 8 }} />}
         <Text style={styles.filterTagText}>
           {isLocationLoading
-            ? 'Buscando sua localização em MOC...'
+            ? 'Buscando sua localização...'
             : locationError
               ? `Erro: ${locationError}`
               : `Localização Encontrada. Raio: ${MAX_DISTANCE_KM} km`}
         </Text>
       </View>
 
-      <FlatList<Evento>
-        data={eventosFiltrados}
+      <FlatList<LocalEsportivo>
+        data={locaisFiltrados}
         keyExtractor={(item) => item.id}
         contentContainerStyle={{ paddingBottom: 20 }}
         ListEmptyComponent={() => {
           if (isLocationLoading) {
-            return <View style={styles.emptyContainer}><Text style={styles.emptyText}>Aguardando localização para filtrar...</Text></View>;
+            return (
+              <View style={styles.emptyContainer}>
+                <Text style={styles.emptyText}>Aguardando localização para filtrar...</Text>
+              </View>
+            );
           }
           return (
             <View style={styles.emptyContainer}>
               <Text style={styles.emptyText}>
                 {locationError
-                  ? "Não foi possível filtrar eventos devido ao erro de localização."
-                  : `Nenhum evento encontrado em um raio de ${MAX_DISTANCE_KM} km da sua posição.`}
+                  ? "Não foi possível filtrar locais devido ao erro de localização."
+                  : `Nenhum local esportivo encontrado em um raio de ${MAX_DISTANCE_KM} km.`}
               </Text>
             </View>
           );
         }}
-        renderItem={({ item }) => <EventCard item={item} />}
+        renderItem={({ item }) => <LocalCard item={item} />}
       />
     </SafeAreaView>
   );
@@ -217,12 +222,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   header: {
-    fontSize: 32,
+    fontSize: 26,
     fontWeight: '700',
     color: '#fff',
     marginBottom: 20,
-    marginTop: 10,
+    marginTop: 48,
   },
+
   filterTag: {
     borderRadius: 8,
     paddingVertical: 6,
@@ -236,7 +242,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#3f51b5',
   },
   successTag: {
-    backgroundColor: '#00c853',
+    backgroundColor: '#00a043ff',
   },
   errorTag: {
     backgroundColor: '#ff2962',
@@ -246,6 +252,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
   },
+
   card: {
     backgroundColor: '#1f1f1f',
     borderRadius: 16,
@@ -257,34 +264,53 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 8,
     borderLeftWidth: 4,
-    borderLeftColor: '#ff2962',
+    borderLeftColor: '#ff2079ff',
   },
   cardHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     marginBottom: 8,
   },
-  eventTitle: {
+  localNome: {
     fontSize: 20,
     fontWeight: '700',
     color: '#fff',
     flexShrink: 1,
+    marginRight: 8,
   },
-  eventDate: {
+  localTipo: {
     fontSize: 14,
-    color: '#ff2962',
+    color: '#ffffffff',
     fontWeight: '700',
+    fontStyle: 'italic',
   },
-  eventLocation: {
+  localEndereco: {
     fontSize: 14,
     color: '#bbb',
+    marginBottom: 12,
+  },
+
+  comodidadesContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 4,
     marginBottom: 8,
   },
-  eventDescription: {
-    fontSize: 14,
-    color: '#ccc',
+  comodidadeTag: {
+    backgroundColor: '#333',
+    borderRadius: 12,
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    marginRight: 6,
+    marginBottom: 6,
   },
+  comodidadeTagText: {
+    color: '#eee',
+    fontSize: 12,
+    fontWeight: '500',
+  },
+
   distanceContainer: {
     marginTop: 10,
     paddingTop: 8,
@@ -302,6 +328,7 @@ const styles = StyleSheet.create({
     color: '#00c853',
     fontWeight: '700',
   },
+
   emptyContainer: {
     alignItems: 'center',
     marginTop: 50,
@@ -313,5 +340,6 @@ const styles = StyleSheet.create({
     color: '#bbb',
     fontSize: 16,
     fontStyle: 'italic',
+    textAlign: 'center',
   }
 });

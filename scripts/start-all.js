@@ -3,7 +3,6 @@ const path = require('path');
 
 console.log('🚀 Starting Sports Connect Full Stack Application...\n');
 
-// Function to start a process
 function startProcess(command, args, cwd, name, color) {
   const process = spawn(command, args, {
     cwd: cwd,
@@ -36,25 +35,25 @@ function startProcess(command, args, cwd, name, color) {
   return process;
 }
 
-// Start Backend
 console.log('📊 Starting Backend Server...');
 const backendProcess = startProcess(
   'npm',
   ['run', 'dev'],
+  // eslint-disable-next-line no-undef
   path.join(__dirname, '..', 'backend'),
   'BACKEND',
-  '\x1b[36m' // Cyan
+  '\x1b[36m'
 );
 
-// Wait a bit for backend to start
 setTimeout(() => {
   console.log('📱 Starting Frontend Server...');
   const frontendProcess = startProcess(
     'npm',
     ['run', 'dev:frontend'],
+    // eslint-disable-next-line no-undef
     path.join(__dirname, '..'),
     'FRONTEND',
-    '\x1b[32m' // Green
+    '\x1b[32m' 
   );
 
   // Handle cleanup

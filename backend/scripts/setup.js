@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const config = require('../config/config');
 
-// Sample data for testing
 const sampleUsers = [
   {
     name: 'John Doe',
@@ -12,7 +11,7 @@ const sampleUsers = [
     skillLevel: 'intermediate',
     location: {
       type: 'Point',
-      coordinates: [-74.0059, 40.7128], // New York
+      coordinates: [-74.0059, 40.7128],
       address: '123 Main St',
       city: 'New York',
       state: 'NY',
@@ -28,7 +27,7 @@ const sampleUsers = [
     skillLevel: 'advanced',
     location: {
       type: 'Point',
-      coordinates: [-122.4194, 37.7749], // San Francisco
+      coordinates: [-122.4194, 37.7749],
       address: '456 Oak Ave',
       city: 'San Francisco',
       state: 'CA',
@@ -43,7 +42,7 @@ const sampleEvents = [
     description: 'Join us for an energetic morning basketball game at the local court. All skill levels welcome!',
     sport: 'basketball',
     skillLevel: 'all',
-    date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week from now
+    date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     duration: 120,
     maxParticipants: 10,
     location: {
@@ -55,7 +54,7 @@ const sampleEvents = [
       country: 'USA',
       venue: 'Central Park'
     },
-    organizer: null, // Will be set after users are created
+    organizer: null,
     requirements: {
       equipment: ['Basketball', 'Water bottle'],
       experience: 'Any level',
@@ -73,7 +72,7 @@ const sampleEvents = [
     description: 'Regular swimming session at the community pool. Great for fitness and relaxation.',
     sport: 'swimming',
     skillLevel: 'intermediate',
-    date: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 3 days from now
+    date: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
     duration: 90,
     maxParticipants: 8,
     location: {
@@ -85,7 +84,7 @@ const sampleEvents = [
       country: 'USA',
       venue: 'SF Community Pool'
     },
-    organizer: null, // Will be set after users are created
+    organizer: null,
     requirements: {
       equipment: ['Swimsuit', 'Goggles', 'Towel'],
       experience: 'Intermediate level',
@@ -107,30 +106,24 @@ async function setupDatabase() {
     await mongoose.connect(config.MONGODB_URI);
     console.log('✅ Connected to MongoDB');
 
-    // Clear existing data
     console.log('🧹 Clearing existing data...');
     await mongoose.connection.db.dropDatabase();
     console.log('✅ Database cleared');
 
-    // Import models
     const User = require('../models/User');
     const Event = require('../models/Event');
 
-    // Create sample users
     console.log('👥 Creating sample users...');
     const users = await User.insertMany(sampleUsers);
     console.log(`✅ Created ${users.length} users`);
 
-    // Update events with organizer IDs
     sampleEvents[0].organizer = users[0]._id;
     sampleEvents[1].organizer = users[1]._id;
 
-    // Create sample events
     console.log('🏃 Creating sample events...');
     const events = await Event.insertMany(sampleEvents);
     console.log(`✅ Created ${events.length} events`);
 
-    // Add some participants
     console.log('🤝 Adding participants...');
     await events[0].addParticipant(users[1]._id);
     await events[1].addParticipant(users[0]._id);
@@ -153,7 +146,6 @@ async function setupDatabase() {
   }
 }
 
-// Run setup if called directly
 if (require.main === module) {
   setupDatabase();
 }

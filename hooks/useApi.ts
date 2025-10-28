@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { ApiResponse, apiService } from '../services/api';
 
-// Generic hook for API calls
 export function useApi<T>(
   apiCall: () => Promise<ApiResponse<T>>,
   dependencies: any[] = []
@@ -22,7 +21,7 @@ export function useApi<T>(
     } finally {
       setLoading(false);
     }
-  }, dependencies);
+  }, [apiCall]);
 
   useEffect(() => {
     fetchData();
@@ -31,7 +30,6 @@ export function useApi<T>(
   return { data, loading, error, refetch: fetchData };
 }
 
-// Specific hooks for common operations
 export function useUsers(params?: {
   page?: number;
   limit?: number;
@@ -78,7 +76,6 @@ export function useUserStats(userId: string) {
   return useApi(() => apiService.getUserStats(userId), [userId]);
 }
 
-// Custom hook for API operations with loading states
 export function useApiOperations() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

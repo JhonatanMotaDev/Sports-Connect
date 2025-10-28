@@ -1,18 +1,15 @@
 import axios from 'axios';
 
-// API Configuration
 const API_BASE_URL = 'http://localhost:3333';
 
-// Create axios instance
 const api = axios.create({
   baseURL: API_BASE_URL,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
-  },
+  }
 });
 
-// Request interceptor
 api.interceptors.request.use(
   (config) => {
     console.log(`🚀 API Request: ${config.method?.toUpperCase()} ${config.url}`);
@@ -24,7 +21,6 @@ api.interceptors.request.use(
   }
 );
 
-// Response interceptor
 api.interceptors.response.use(
   (response) => {
     console.log(`✅ API Response: ${response.status} ${response.config.url}`);
@@ -36,7 +32,6 @@ api.interceptors.response.use(
   }
 );
 
-// API Service Types
 export interface User {
   _id: string;
   name: string;
@@ -80,11 +75,11 @@ export interface Event {
     venue?: string;
   };
   organizer: User;
-  participants: Array<{
+  participants: {
     user: User;
     joinedAt: string;
     status: 'confirmed' | 'pending' | 'cancelled';
-  }>;
+  }[];
   requirements?: {
     equipment?: string[];
     experience?: string;
@@ -125,15 +120,12 @@ export interface ApiResponse<T> {
   };
 }
 
-// API Service Class
 class ApiService {
-  // Health Check
   async healthCheck(): Promise<ApiResponse<any>> {
     const response = await api.get('/');
     return response.data;
   }
 
-  // Users API
   async getUsers(params?: {
     page?: number;
     limit?: number;
@@ -194,7 +186,6 @@ class ApiService {
     return response.data;
   }
 
-  // Events API
   async getEvents(params?: {
     page?: number;
     limit?: number;
@@ -252,6 +243,5 @@ class ApiService {
   }
 }
 
-// Export singleton instance
 export const apiService = new ApiService();
 export default apiService;

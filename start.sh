@@ -1,5 +1,3 @@
-#!/bin/bash
-
 echo "🚀 Starting Sports Connect Full Stack Application..."
 echo
 
@@ -21,7 +19,6 @@ echo "🗄️  MongoDB Compass: mongodb://localhost:27017/sportsconnect"
 echo
 echo "Press Ctrl+C to stop all servers"
 
-# Function to cleanup on exit
 cleanup() {
     echo
     echo "🛑 Shutting down servers..."
@@ -30,8 +27,6 @@ cleanup() {
     exit 0
 }
 
-# Trap Ctrl+C
 trap cleanup SIGINT
 
-# Wait for processes
 wait

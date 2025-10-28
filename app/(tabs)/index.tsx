@@ -1,17 +1,16 @@
 import { Feather } from '@expo/vector-icons';
-import { useState } from 'react';
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, SafeAreaView } from 'react-native';
 import { useRouter } from 'expo-router';
 
 const eventsData = [
     {
         id: 'evt1',
-        title: 'Novo Nordisk: Corrida de Boston',
+        title: 'Novo Nordisk: Corrida no Site Montes Claros',
         organizer: 'Time Novo Nordisk',
         date: '18/05/2024',
         time: '08:00 AM',
-        location: 'Boston, MA, EUA',
-        description: 'Participe da lendária Maratona de Boston com o Time Novo Nordisk. Junte-se a nós para aumentar a conscientização sobre diabetes e inspirar a todos a viver uma vida ativa. Um evento para corredores de todos os níveis.',
+        location: 'Montes Claros, MG, Brasil',
+        description: 'Participe da Maratona de Montes Claros com o Time Novo Nordisk. Junte-se a nós para aumentar a conscientização sobre diabetes e inspirar a todos a viver uma vida ativa. Um evento para corredores de todos os níveis.',
         participants: [
             { id: '1', name: 'Ana Souza', avatar: 'https://images.unsplash.com/photo-1549476041-3870814a044d?fit=crop&w=400&q=80' },
             { id: '2', name: 'Carlos Ribeiro', avatar: 'https://images.unsplash.com/photo-1571060965313-2d2f1f5d2b7c?fit=crop&w=400&q=80' },
@@ -25,8 +24,8 @@ const eventsData = [
         organizer: 'Time Novo Nordisk',
         date: '18/05/2024',
         time: '09:00 AM',
-        location: 'Copenhague, Dinamarca',
-        description: 'Um evento de ciclismo para celebrar a saúde e o bem-estar. A rota passa pelas belas paisagens da Dinamarca, com apoio total ao longo do percurso. Aberto a ciclistas de todos os níveis.',
+        location: 'Montes Claros, MG, Brasil',
+        description: 'Um evento de ciclismo para celebrar a saúde e o bem-estar. A rota passa pelas belas paisagens do sertão mineiro, com apoio total ao longo do percurso. Aberto a ciclistas de todos os níveis.',
         participants: [
             { id: '1', name: 'Pedro Alves', avatar: 'https://images.unsplash.com/photo-1506114177439-01580214a1a6?fit=crop&w=400&q=80' },
             { id: '2', name: 'Mariana Costa', avatar: 'https://images.unsplash.com/photo-1517178120689-d106c117b9b1?fit=crop&w=400&q=80' },
