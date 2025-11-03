@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#fff',
     marginBottom: 20,
-    marginTop: 48,
+    marginTop: 20,
   },
 
   filterTag: {

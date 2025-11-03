@@ -1,6 +1,6 @@
 import { Feather } from '@expo/vector-icons';
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, SafeAreaView } from 'react-native';
 import { useRouter } from 'expo-router';
+import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const eventsData = [
     {
@@ -89,20 +89,22 @@ export default function EventsListScreen() {
             <Image source={{ uri: event.coverImage }} style={styles.coverImage} />
             <View style={styles.cardContent}>
                 <Text style={styles.title}>{event.title}</Text>
-                <Text style={styles.organizer}>
-                    <Feather name="user" size={14} color="#8899a6" /> {event.organizer}
-                </Text>
-
-                <View style={styles.cardDetailsRow}>
-                    <Text style={styles.cardDetailText}>
-                        <Feather name="calendar" size={12} color="#ff2962" /> {event.date}
-                    </Text>
-                    <Text style={styles.cardDetailText}>
-                        <Feather name="map-pin" size={12} color="#ff2962" /> {event.location}
-                    </Text>
+                <View style={styles.organizerContainer}>
+                    <Feather name="user" size={14} color="#8899a6" />
+                    <Text style={styles.organizer}> {event.organizer}</Text>
                 </View>
 
-                {}
+                <View style={styles.cardDetailsRow}>
+                    <View style={styles.cardDetailContainer}>
+                        <Feather name="calendar" size={12} color="#ff2962" />
+                        <Text style={styles.cardDetailText}> {event.date}</Text>
+                    </View>
+                    <View style={styles.cardDetailContainer}>
+                        <Feather name="map-pin" size={12} color="#ff2962" />
+                        <Text style={styles.cardDetailText}> {event.location}</Text>
+                    </View>
+                </View>
+
                 <View style={styles.participantsPreview}>
                     {event.participants.slice(0, 3).map(p => (
                         <Image key={p.id} source={{ uri: p.avatar }} style={styles.participantAvatarSmall} />
@@ -126,9 +128,7 @@ export default function EventsListScreen() {
                             style={styles.profilePic}
                         />
                     </TouchableOpacity>
-                    {}
                     <Text style={styles.headerTitle}>Eventos</Text>
-                    {}
                     <View style={styles.profilePicPlaceholder} />
                 </View>
 
@@ -146,7 +146,16 @@ const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
         backgroundColor: '#141414',
-        paddingTop: 30,
+        paddingTop: 4,
+    },
+    organizerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    cardDetailContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     appContainer: {
         flex: 1,

@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   followButtonText: {
-    color: '#ff2962 ',
+    color: '#161616ff',
     fontWeight: 'bold',
   },
   profileInfo: {

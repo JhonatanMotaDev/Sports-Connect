@@ -1,6 +1,6 @@
 import { Feather } from "@expo/vector-icons";
-import React, { useState } from "react";
 import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
+import React, { useState } from "react";
 import { ActivityIndicator, Animated, FlatList, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 
 import { Event } from "../../services/api";
