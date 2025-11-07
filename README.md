@@ -1,4 +1,4 @@
-# 🏃‍♂️ Sports Connect
+# Sports Connect
 
 <div align="center">
 
@@ -13,17 +13,17 @@
 
 ---
 
-## 📋 Sobre
+## Sobre
 
 O Sports Connect é uma aplicação mobile (iOS & Android) desenvolvida como projeto de extensão e pesquisa do curso de Engenharia da Computação da Afya. O app conecta pessoas através de eventos esportivos, promovendo saúde e integração social.
 
-### 🎯 Objetivo
+### Objetivo
 
 Facilitar a criação, descoberta e participação em eventos esportivos, incentivando a prática de atividades físicas e a formação de grupos locais.
 
 ---
 
-## ✨ Funcionalidades
+## Funcionalidades
 
 - **Criação de Eventos**: Crie eventos com título, data, local e descrição
 - **Exploração**: Navegue e descubra eventos próximos ou relevantes
@@ -31,7 +31,7 @@ Facilitar a criação, descoberta e participação em eventos esportivos, incent
 
 ---
 
-## 🛠 Tecnologias
+## Tecnologias
 
 - **React Native** - Framework mobile multiplataforma
 - **Expo** - Plataforma de desenvolvimento e build
@@ -75,12 +75,11 @@ Sports-Connect/
 │   └── utils/                  # Funções auxiliares
 │       └── helpers.js
 │
-├── .env                        # Variáveis de ambiente (configurações sensíveis)
 ├── package-lock.json           # Controle de dependências
 └── package.json                # Metadados e dependências do projeto
 ```
 
-## 🚀 Instalação
+## Instalação
 
 ### Pré-requisitos
 
@@ -125,7 +124,7 @@ npx expo start --web      # Web
 
 ---
 
-## 🤝 Como Contribuir
+## Como Contribuir
 
 1. Fork o projeto
 2. Crie uma branch: `git checkout -b feature/MinhaFeature`
@@ -144,7 +143,7 @@ npx expo start --web      # Web
 
 ---
 
-## 📦 Build
+## Build
 
 ```bash
 # Build Android
@@ -156,7 +155,7 @@ eas build --platform ios
 
 ---
 
-## 👥 Equipe
+## Equipe
 
 **Jhonatan Mota** - [@JhonatanMotaDev](https://github.com/JhonatanMotaDev)
 
