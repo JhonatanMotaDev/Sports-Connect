@@ -187,6 +187,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 <div align="center">
 
-Feito com ❤️ para promover saúde através do esporte
+Feito com <3 para promover saúde através do esporte
 
 </div>
