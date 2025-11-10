@@ -1,12 +1,13 @@
 import { Feather } from '@expo/vector-icons';
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const user = {
   name: 'João Silva',
   handle: '@joaosilvarun',
   bio: 'Corredor apaixonado, maratonista e entusiasta de fitness. Compartilhando minha jornada, treinos e os desafios da corrida.',
   location: 'Rio de Janeiro, Brasil',
-  joinDate: 'Entrou em Janeiro de 2023',
+  joinDate: 'Entrou em Janeiro de 2021',
   avatar: 'https://images.pexels.com/photos/1578384/pexels-photo-1578384.jpeg',
   coverImage: 'https://images.pexels.com/photos/136721/pexels-photo-136721.jpeg',
   stats: {
@@ -48,53 +49,65 @@ const user = {
 };
 
 export default function ProfileScreen() {
+  const insets = useSafeAreaInsets();
+
   return (
-    <ScrollView style={styles.container}>
-      <Image source={{ uri: user.coverImage }} style={styles.coverImage} />
+    <View style={styles.outerContainer}>
+      <ScrollView 
+        style={[styles.container, { paddingTop: insets.top }]}
+        contentContainerStyle={{ paddingBottom: insets.bottom + 80 }}
+        showsVerticalScrollIndicator={false}
+      >
+        <Image source={{ uri: user.coverImage }} style={styles.coverImage} />
 
-      <View style={styles.profileHeader}>
-        <Image source={{ uri: user.avatar }} style={styles.avatar} />
-        <TouchableOpacity style={styles.followButton}>
-          <Text style={styles.followButtonText}>Seguir</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.profileInfo}>
-        <Text style={styles.name}>{user.name}</Text>
-        <Text style={styles.handle}>{user.handle}</Text>
-        <Text style={styles.bio}>{user.bio}</Text>
-        <View style={styles.detailsRow}>
-          <Feather name="map-pin" size={16} color="#bbb" />
-          <Text style={styles.detailText}>{user.location}</Text>
-          <Feather name="calendar" size={16} color="#bbb" style={{ marginLeft: 10 }} />
-          <Text style={styles.detailText}>{user.joinDate}</Text>
+        <View style={styles.profileHeader}>
+          <Image source={{ uri: user.avatar }} style={styles.avatar} />
+          <TouchableOpacity style={styles.followButton}>
+            <Text style={styles.followButtonText}>Seguir</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.statsRow}>
-          <Text style={styles.statItem}>
-            <Text style={styles.statNumber}>{user.stats.following}</Text>
-            <Text style={styles.statLabel}> Seguindo</Text>
-          </Text>
-          <Text style={styles.statItem}>
-            <Text style={styles.statNumber}>{user.stats.followers}</Text>
-            <Text style={styles.statLabel}> Seguidores</Text>
-          </Text>
-        </View>
-      </View>
 
-      <View style={styles.postsContainer}>
-        <Text style={styles.postsTitle}>Publicações</Text>
-        {user.posts.map(post => (
-          <View key={post.id} style={styles.postItem}>
-            <Text style={styles.postText}>{post.text}</Text>
-            <Text style={styles.postDate}>{post.date}</Text>
+        <View style={styles.profileInfo}>
+          <Text style={styles.name}>{user.name}</Text>
+          <Text style={styles.handle}>{user.handle}</Text>
+          <Text style={styles.bio}>{user.bio}</Text>
+          <View style={styles.detailsRow}>
+            <Feather name="map-pin" size={16} color="#bbb" />
+            <Text style={styles.detailText}>{user.location}</Text>
+            <Feather name="calendar" size={16} color="#bbb" style={{ marginLeft: 10 }} />
+            <Text style={styles.detailText}>{user.joinDate}</Text>
           </View>
-        ))}
-      </View>
-    </ScrollView>
+          <View style={styles.statsRow}>
+            <Text style={styles.statItem}>
+              <Text style={styles.statNumber}>{user.stats.following}</Text>
+              <Text style={styles.statLabel}> Seguindo</Text>
+            </Text>
+            <Text style={styles.statItem}>
+              <Text style={styles.statNumber}>{user.stats.followers}</Text>
+              <Text style={styles.statLabel}> Seguidores</Text>
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.postsContainer}>
+          <Text style={styles.postsTitle}>Publicações</Text>
+          {user.posts.map(post => (
+            <View key={post.id} style={styles.postItem}>
+              <Text style={styles.postText}>{post.text}</Text>
+              <Text style={styles.postDate}>{post.date}</Text>
+            </View>
+          ))}
+        </View>
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  outerContainer: {
+    flex: 1,
+    backgroundColor: '#141414',
+  },
   container: {
     flex: 1,
     backgroundColor: '#141414',

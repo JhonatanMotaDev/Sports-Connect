@@ -1,7 +1,8 @@
 import { Feather } from "@expo/vector-icons";
 import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import React, { useState } from "react";
-import { ActivityIndicator, Animated, FlatList, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, Animated, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Event } from "../../services/api";
 
@@ -17,6 +18,7 @@ const sportOptions = [
 ];
 
 export default function EventsScreen() {
+    const insets = useSafeAreaInsets();
     const [title, setTitle] = useState("");
     const [location, setLocation] = useState("");
     const [description, setDescription] = useState("");
@@ -173,159 +175,181 @@ export default function EventsScreen() {
         setEditingEventId(null);
     };
 
-    const renderItem = ({ item }: { item: Event }) => (
-        <View style={styles.card}>
-            <View style={styles.cardHeader}>
-                <Text style={styles.cardTitle}>{item.title}</Text>
-                <Text style={styles.cardInfo}>{item.location.address}</Text>
-                <Text style={styles.cardSport}>{item.sport} • {item.skillLevel}</Text>
-                <Text style={styles.cardInfo}>Participantes: {item.currentParticipants}/{item.maxParticipants}</Text>
-                <Text style={styles.cardDate}>{new Date(item.date).toLocaleDateString()}</Text>
-            </View>
-            {item.description ? <Text style={styles.cardDescription}>{item.description}</Text> : null}
-            <View style={styles.cardActions}>
-                <Pressable style={styles.editButton} onPress={() => handleEdit(item)}>
-                    <Text style={styles.actionText}>Editar</Text>
-                </Pressable>
-                <Pressable style={styles.deleteButton} onPress={() => handleDelete(item._id)}>
-                    <Text style={styles.actionText}>Excluir</Text>
-                </Pressable>
-            </View>
-        </View>
-    );
-
     return (
-        <View style={styles.container}>
-            <Pressable style={styles.titleContainer} onPress={() => setIsFormVisible(prev => !prev)}>
-                <Text style={styles.title}>Gerenciar Eventos</Text>
-                <Feather name={isFormVisible ? "chevron-up" : "chevron-down"} size={28} color="#fff" />
-            </Pressable>
+        <KeyboardAvoidingView 
+            style={[styles.container, { paddingTop: insets.top }]}
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 0}
+        >
+            <ScrollView 
+                style={styles.scrollContainer}
+                contentContainerStyle={[
+                    styles.scrollContent,
+                    { paddingBottom: insets.bottom + 80 }
+                ]}
+                keyboardShouldPersistTaps="handled"
+                showsVerticalScrollIndicator={false}
+            >
+                <Pressable style={styles.titleContainer} onPress={() => setIsFormVisible(prev => !prev)}>
+                    <Text style={styles.title}>Gerenciar Eventos</Text>
+                    <Feather name={isFormVisible ? "chevron-up" : "chevron-down"} size={28} color="#fff" />
+                </Pressable>
 
-            {isFormVisible && (
-                <View style={styles.form}>
-                    <TextInput
-                        placeholder="Título do Evento"
-                        placeholderTextColor="#888"
-                        style={styles.input}
-                        value={title}
-                        onChangeText={setTitle}
-                    />
-                    <TextInput
-                        placeholder="Local do Evento"
-                        placeholderTextColor="#888"
-                        style={styles.input}
-                        value={location}
-                        onChangeText={setLocation}
-                    />
-
-                    <Pressable style={styles.datePickerButton} onPress={() => setShowDatePicker(true)}>
-                        <Text style={styles.datePickerText}>{`Data: ${date.toLocaleDateString()}`}</Text>
-                        <Feather name="calendar" size={20} color="#ff2962" />
-                    </Pressable>
-
-                    {showDatePicker && (
-                        <DateTimePicker
-                            testID="dateTimePicker"
-                            value={date}
-                            mode="date"
-                            display="default"
-                            onChange={onChangeDate}
-                            minimumDate={new Date()}
+                {isFormVisible && (
+                    <View style={styles.form}>
+                        <TextInput
+                            placeholder="Título do Evento"
+                            placeholderTextColor="#888"
+                            style={styles.input}
+                            value={title}
+                            onChangeText={setTitle}
                         />
-                    )}
+                        <TextInput
+                            placeholder="Local do Evento"
+                            placeholderTextColor="#888"
+                            style={styles.input}
+                            value={location}
+                            onChangeText={setLocation}
+                        />
 
-                    <Text style={styles.inputLabel}>Modalidade</Text>
-                    <ScrollView 
-                        horizontal 
-                        showsHorizontalScrollIndicator={false} 
-                        style={styles.sportSelectorContainer}
-                        contentContainerStyle={{ paddingRight: 20 }}
-                    >
-                        {sportOptions.map(opt => (
-                            <Pressable
-                                key={opt}
-                                style={[
-                                    styles.sportButton,
-                                    sport === opt && styles.sportButtonSelected
-                                ]}
-                                onPress={() => setSport(opt)}
-                            >
-                                <Text style={[
-                                    styles.sportButtonText,
-                                    sport === opt && styles.sportButtonTextSelected
-                                ]}>{opt}</Text>
-                            </Pressable>
-                        ))}
-                    </ScrollView>
-                    
-                    <TextInput
-                        placeholder="Qtd. Máxima de Participantes"
-                        placeholderTextColor="#888"
-                        style={styles.input}
-                        value={maxParticipants}
-                        onChangeText={setMaxParticipants}
-                        keyboardType="numeric"
-                    />
-
-                    <TextInput
-                        placeholder="Descrição (opcional)"
-                        placeholderTextColor="#888"
-                        style={[styles.input, styles.textArea]}
-                        value={description}
-                        onChangeText={setDescription}
-                        multiline
-                    />
-
-                    <View>
-                {editingEventId ? (
-                    <View style={styles.buttonContainer}>
-                        <Pressable style={styles.updateButton} onPress={handleUpdateEvent}>
-                            <Text style={styles.buttonText}>Atualizar Evento</Text>
+                        <Pressable style={styles.datePickerButton} onPress={() => setShowDatePicker(true)}>
+                            <Text style={styles.datePickerText}>{`Data: ${date.toLocaleDateString()}`}</Text>
+                            <Feather name="calendar" size={20} color="#ff2962" />
                         </Pressable>
-                        <Pressable style={styles.cancelButton} onPress={resetForm}>
-                            <Text style={styles.buttonText}>Cancelar</Text>
-                        </Pressable>
+
+                        {showDatePicker && (
+                            <DateTimePicker
+                                testID="dateTimePicker"
+                                value={date}
+                                mode="date"
+                                display="default"
+                                onChange={onChangeDate}
+                                minimumDate={new Date()}
+                            />
+                        )}
+
+                        <Text style={styles.inputLabel}>Modalidade</Text>
+                        <ScrollView 
+                            horizontal 
+                            showsHorizontalScrollIndicator={false} 
+                            style={styles.sportSelectorContainer}
+                            contentContainerStyle={{ paddingRight: 20 }}
+                            nestedScrollEnabled={true}
+                        >
+                            {sportOptions.map(opt => (
+                                <Pressable
+                                    key={opt}
+                                    style={[
+                                        styles.sportButton,
+                                        sport === opt && styles.sportButtonSelected
+                                    ]}
+                                    onPress={() => setSport(opt)}
+                                >
+                                    <Text style={[
+                                        styles.sportButtonText,
+                                        sport === opt && styles.sportButtonTextSelected
+                                    ]}>{opt}</Text>
+                                </Pressable>
+                            ))}
+                        </ScrollView>
+                        
+                        <TextInput
+                            placeholder="Qtd. Máxima de Participantes"
+                            placeholderTextColor="#888"
+                            style={styles.input}
+                            value={maxParticipants}
+                            onChangeText={setMaxParticipants}
+                            keyboardType="numeric"
+                        />
+                
+                        <TextInput
+                            placeholder="Horário do Evento"
+                            placeholderTextColor="#888"
+                            style={styles.input}
+                        />
+
+                        <TextInput
+                            placeholder="Descrição (opcional)"
+                            placeholderTextColor="#888"
+                            style={[styles.input, styles.textArea]}
+                            value={description}
+                            onChangeText={setDescription}
+                            multiline
+                        />
+
+                        <View>
+                            {editingEventId ? (
+                                <View style={styles.buttonContainer}>
+                                    <Pressable style={styles.updateButton} onPress={handleUpdateEvent}>
+                                        <Text style={styles.buttonText}>Atualizar Evento</Text>
+                                    </Pressable>
+                                    <Pressable style={styles.cancelButton} onPress={resetForm}>
+                                        <Text style={styles.buttonText}>Cancelar</Text>
+                                    </Pressable>
+                                </View>
+                            ) : (
+                                <Pressable style={styles.addButton} onPress={handleAddEvent}>
+                                    <Text style={styles.buttonText}>Adicionar Evento</Text>
+                                </Pressable>
+                            )}
+                        </View>
+                    </View>
+                )}
+
+                {message ? (
+                    <Animated.View style={[styles.messageBox, { opacity: fadeAnim }]}>
+                        <Text style={styles.messageText}>{message}</Text>
+                    </Animated.View>
+                ) : null}
+
+                {loading ? (
+                    <ActivityIndicator size="large" color="#ff2962" />
+                ) : error ? (
+                    <Text style={styles.errorText}>{error}</Text>
+                ) : events.length === 0 ? (
+                    <View style={styles.emptyList}>
+                        <Feather name="calendar" size={50} color="#555" />
+                        <Text style={styles.emptyListText}>Nenhum evento encontrado.</Text>
+                        <Text style={styles.emptyListSubText}>Crie um evento para começar.</Text>
                     </View>
                 ) : (
-                    <Pressable style={styles.addButton} onPress={handleAddEvent}>
-                        <Text style={styles.buttonText}>Adicionar Evento</Text>
-                    </Pressable>
-                )}
-            </View>
-                </View>
-            )}
-
-            {message ? (
-                <Animated.View style={[styles.messageBox, { opacity: fadeAnim }]}>
-                    <Text style={styles.messageText}>{message}</Text>
-                </Animated.View>
-            ) : null}
-
-            {loading ? (
-                <ActivityIndicator size="large" color="#ff2962" />
-            ) : error ? (
-                <Text style={styles.errorText}>{error}</Text>
-            ) : (
-                <FlatList
-                    data={events}
-                    keyExtractor={(item) => item._id}
-                    contentContainerStyle={{ paddingBottom: 150 }}
-                    ListEmptyComponent={() => (
-                        <View style={styles.emptyList}>
-                            <Feather name="calendar" size={50} color="#555" />
-                            <Text style={styles.emptyListText}>Nenhum evento encontrado.</Text>
-                            <Text style={styles.emptyListSubText}>Crie um evento para começar.</Text>
+                    events.map((item) => (
+                        <View key={item._id} style={styles.card}>
+                            <View style={styles.cardHeader}>
+                                <Text style={styles.cardTitle}>{item.title}</Text>
+                                <Text style={styles.cardInfo}>{item.location.address}</Text>
+                                <Text style={styles.cardSport}>{item.sport} • {item.skillLevel}</Text>
+                                <Text style={styles.cardInfo}>Participantes: {item.currentParticipants}/{item.maxParticipants}</Text>
+                                <Text style={styles.cardDate}>{new Date(item.date).toLocaleDateString()}</Text>
+                            </View>
+                            {item.description ? <Text style={styles.cardDescription}>{item.description}</Text> : null}
+                            <View style={styles.cardActions}>
+                                <Pressable style={styles.editButton} onPress={() => handleEdit(item)}>
+                                    <Text style={styles.actionText}>Editar</Text>
+                                </Pressable>
+                                <Pressable style={styles.deleteButton} onPress={() => handleDelete(item._id)}>
+                                    <Text style={styles.actionText}>Excluir</Text>
+                                </Pressable>
+                            </View>
                         </View>
-                    )}
-                    renderItem={renderItem}
-                />
-            )}
-        </View>
+                    ))
+                )}
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, padding: 20, paddingTop: 50, backgroundColor: "#121212" },
+    container: { 
+        flex: 1, 
+        backgroundColor: "#121212",
+    },
+    scrollContainer: {
+        flex: 1,
+    },
+    scrollContent: {
+        padding: 10,
+    },
     titleContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, View, Text, FlatList, TouchableOpacity, StatusBar, ActivityIndicator } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const MAX_DISTANCE_KM = 5.0;
 
@@ -69,7 +69,44 @@ const dadosLocaisMock = [
     coordenadas: { lat: -16.6350, lon: -43.8450 },
     comodidades: ['Piscinas', 'Campos', 'Restaurante', 'Hospedagem']
   },
+
+  {
+    id: '9',
+    nome: 'Clube SESI Montes Claros',
+    tipo: 'Clube',
+    endereco: 'Av. Dulce Sarmento, 601 - São José',
+    coordenadas: { lat: -16.7000, lon: -43.8600 },
+    comodidades: ['Piscinas', 'Quadras multiuso', 'Escola de Esportes', 'Lazer Família']
+  },
+
+  {
+    id: '10',
+    nome: 'Complexo Esportivo Oeste',
+    tipo: 'Centro Esportivo Público',
+    endereco: 'Av. Nice - Bairro Ibituruna',
+    coordenadas: { lat: -16.7400, lon: -43.8700 },
+    comodidades: ['Campo de futebol gramado sintético', '3 quadras de areia (vôlei/peteca/beach tennis)', 'Vestiários']
+  },
+
+  {
+    id: '11',
+    nome: 'Estádio José Maria de Melo',
+    tipo: 'Estádio de Futebol',
+    endereco: 'Av. Ceará - Montes Claros Centro',
+    coordenadas: { lat: -16.7280, lon: -43.8670 },
+    comodidades: ['Campo de futebol', 'Arquibancadas', 'Iluminação']
+  },
+  
+  {
+    id: '12',
+    nome: 'Centro Esportivo Universitário Reitor João Valle Maurício (Unimontes)',
+    tipo: 'Universidade',
+    endereco: 'Unimontes Campus Montes Claros - endereço interno',
+    coordenadas: { lat: -16.7150, lon: -43.8650 },
+    comodidades: ['Quadras Poliesportivas', 'Pista de Atletismo', 'Quadras de Tênis', 'Academia', 'Campo de Futebol Society', 'Piscina Olímpica']
+  }
 ];
+
 
 type LocalEsportivo = {
   id: string;
@@ -98,6 +135,7 @@ const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: numbe
 };
 
 export default function LocaisEsportivosScreen() {
+  const insets = useSafeAreaInsets();
   const [todosOsLocais] = useState<LocalEsportivo[]>(dadosLocaisMock);
   const [locaisFiltrados, setLocaisFiltrados] = useState<LocalEsportivo[]>([]);
 
@@ -115,8 +153,6 @@ export default function LocaisEsportivosScreen() {
       setUserLocation(simulatedLocation);
       setIsLocationLoading(false);
     }, 1000);
-
-    
   }, []);
 
   useEffect(() => {
@@ -172,7 +208,7 @@ export default function LocaisEsportivosScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top }]}>
       <StatusBar barStyle="light-content" backgroundColor="#121212" />
       <Text style={styles.header}>Locais Esportivos Perto de Você</Text>
 
@@ -190,7 +226,7 @@ export default function LocaisEsportivosScreen() {
       <FlatList<LocalEsportivo>
         data={locaisFiltrados}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={{ paddingBottom: 20 }}
+        contentContainerStyle={{ paddingBottom: insets.bottom + 80 }}
         ListEmptyComponent={() => {
           if (isLocationLoading) {
             return (
@@ -211,7 +247,7 @@ export default function LocaisEsportivosScreen() {
         }}
         renderItem={({ item }) => <LocalCard item={item} />}
       />
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -264,7 +300,7 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 8,
     borderLeftWidth: 4,
-    borderLeftColor: '#ff2079ff',
+    borderLeftColor: '#1f1f1f',
   },
   cardHeader: {
     flexDirection: 'row',
